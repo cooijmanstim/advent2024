@@ -1,15 +1,7 @@
-MainDiagonal←{(⥊𝕩)⊏˜(1+¯1⊑≢𝕩)×↕⌊´≢𝕩}
-Diagonals←{𝕊x:
-  m‿n←≢x
-  ∾´ ⟨
-    (⋈MainDiagonal x),
-    ({𝕊i: MainDiagonal i⊸↓ x}¨ 1↓↕m),
-    ({𝕊j: MainDiagonal j⊸↓˘x}¨ 1↓↕n),
-  ⟩
-}
+Swizzle ← ⍉{(↕≠𝕩) ⌽˘ 𝕩∾˘' '¨𝕩}  # turn diagonals horizontal
 
 x ← > •FLines ⊑•args
-haystacks ← ∾´ ⟨ <˘x, <˘⍉x, Diagonals x, Diagonals ⌽x ⟩
+haystacks ← ∾´ ⟨ <˘x, <˘⍉x, <˘Swizzle x, <˘Swizzle ⌽x ⟩
 needles ← "XMAS"‿"SAMX"
 •Show +´⥊ (+´∘⥊)¨ needles ⍷⌜ haystacks
 
