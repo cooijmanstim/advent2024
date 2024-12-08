@@ -6,21 +6,12 @@ Gcd ← {
 
 map ← >•FLines⊑•args
 xss ← (((1⊸↓)∘(¯1⊸+)∘⊐∘("."⊸∾)∘⥊)⊔(⥊∘↕∘≢)) map  # index lists by channel
-
+InBounds ← (∧´∘(0⊸≤∧<⟜(≢map))¨)⊸/
 Antinodes ← {𝕊generate:
-  nodemap ← 0¨map
-  {𝕊⟨⟩: @;
-   𝕊xs:
-    ys ← (≢´¨/⊢)⥊⋈⌜˜ xs  # pairs of distinct antennae
-    ys ∾∘(Generate´¨)↩  # collect candidates
-    ys (∧´∘(0⊸≤∧<⟜(≢nodemap))¨/⊢)↩  # filter in bounds
-    nodemap 1¨⌾(ys⊸⊑)↩
-  }¨ xss
-  nodemap
+  ⍷ InBounds ∾ (∾∘(Generate´¨)∘(≢´¨/⊢)∘⥊∘(⋈⌜˜))¨ xss
 }
-
-•Show +´⥊ Antinodes {{p𝕊q: p⊸+∘((q-p)⊸×)¨ ¯1‿2}}
-•Show +´⥊ Antinodes {{p𝕊q:
+•Show ≠ Antinodes {{p𝕊q: p⊸+∘((q-p)⊸×)¨ ¯1‿2}}
+•Show ≠ Antinodes {{p𝕊q:
   dx ← (∧´0⊸=)◶⟨⊢,÷⟜(Gcd´∘|)⟩ q-p
   back‿forth ← ⌈´¨⌈| dx÷˜¨ (p-0)‿(p-˜≢map)
   p⊸+∘(dx⊸×)¨ back-˜↕back+forth
