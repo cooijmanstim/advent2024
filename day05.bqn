@@ -23,7 +23,7 @@ Order ← {𝕊xs:
   #!xs≡⍷xs  # no duplicates
   m←xs⊏xs⊸⊏˘mat  # relevant rows/columns of the adjacency matrix
   m ↩ ¯∞⋆¬m  # replace zeros with neg infs; note ¯∞⋆0=1, ¯∞⋆1=¯∞
-  m 0¨⌾((⋈˜¨↕≠xs)⊸⊑)↩  # zeros on the diagonal
+  m 0¨⌾(0‿0⊸⍉)↩  # zeros on the diagonal
   MP ← ((⌈´∘+)⌜○(<˘))⟜⍉  # max-plus matrix-matrix product
   cm ← MP˜⍟(⌈2⋆⁼≠xs) m  # "square" log_2 n times
   xs ⊏˜ ⍋ ⌈´˘⍉cm  # sort according to longest incoming edge
