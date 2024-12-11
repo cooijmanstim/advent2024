@@ -1,6 +1,6 @@
-ParseNat ← 10⊸×⊸+˜´ ∘⌽ -⟜'0'
+ParseNat ← 10⊸×⊸+˜´∘⌽ -⟜'0'
 IsDigit ← '0'⊸≤∧≤⟜'9'
-IdentifyRegions ← {¯1+𝕩×+`0⌈𝕩-»𝕩}
+IdentifyRegions ← ¯1⊸+ ⊢ × +`∘(0⊸⌈)∘(-⟜»)
 _CollectRuns ← {IdentifyRegions∘𝔽⊸⊔}
 CollectNumbers ← {𝕊s: ParseNat¨ IsDigit _CollectRuns s}
 xs←CollectNumbers⊑•FLines⊑•args
