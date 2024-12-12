@@ -16,9 +16,10 @@ Segment ← {𝕊x:
 
 segmentation ← Segment x
 
-Crop ← {(∨´˘𝕩)/𝕩}
-regions ← Crop⌾⍉∘Crop∘(segmentation⊸=)¨ ↕1+⌈´⥊segmentation  # one-hot map for each region
-edgemapss ← {𝕊r: {(«˘⊸-∘(0⊸∾˘))⌾𝕏 r}¨ ⊢‿⍉}¨ regions  # h/v edgemap for each region
+Crop ← ∨´˘⊸/ {𝔽 _𝕣 𝕩: 𝔽⌾⍉ 𝔽 𝕩}
+Pad ← 1⊸⌽∘(0‿0⊸∾)˘ {𝔽 _𝕣 𝕩: 𝔽⌾⍉ 𝔽 𝕩}
+regions ← Pad∘Crop∘(segmentation⊸=)¨ ↕1+⌈´⥊segmentation  # one-hot map for each region
+edgemapss ← {𝕊r: {(«˘⊸-)⌾𝕏 r}¨ ⊢‿⍉}¨ regions  # h/v edgemap for each region
 
 areas ← +´∘⥊¨ regions
 edges1 ← +´¨ +´∘⥊¨¨| edgemapss  # count edges
