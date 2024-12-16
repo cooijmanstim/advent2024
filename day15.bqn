@@ -1,10 +1,11 @@
 lines ← •FLines⊑•args
 map‿moves ← >¨ lines (↑ ⋈ 1⊸+⊸↓)˜ ⊑/ ⟨⟩⊸≡¨ lines
 
+Shifts ← {'>':⟨»˘,«˘⟩;'<':⟨«˘,»˘⟩;'v':⟨»,«⟩;'^':⟨«,»⟩}
+
 Simulate ← {𝕊map‿markblob:
   map {move𝕊map:
-    push ← {'>':{»˘};'<':{«˘};'v':{»};'^':{«}} move
-    pull ← {'>':{«˘};'<':{»˘};'v':{«};'^':{»}} move
+    push‿pull ← Shifts move
     src ← MarkBlob map‿push‿pull
     dst ← Push src
     infront‿behind ← dst (∧⟜¬ ⋈ ¬⊸∧) src
