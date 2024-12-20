@@ -1,9 +1,13 @@
 map ← >•FLines⊑•args
 
-_fx_ ← {F _𝕣_ G 𝕩: ⊑{p‿n: n⋈F n} •_while_ (G´) 𝕩⋈F𝕩 }
-_expand ← { 𝕩 𝔽´ ⟨«,»,«˘,»˘⟩ {1+𝕎𝕩}¨ <𝕩 }
-infwall ← 0‿∞⊏˜map='#'
-v ← { infwall ⌈ ⌊ _expand 𝕩 } _fx_ ≢ ∞‿0⊏˜map='E'
+v ← { # find the one path and measure distance to goal (∞ for walls)
+  path ← ⋈ ⊑ (map='S') /○⥊ ↕≢map
+  {𝕩
+    candidates ← (⊑path)⊸+¨ <˘ ∘‿2⥊¯1‿0‿0‿¯1‿1‿0‿0‿1
+    path ∾˜↩ < ⊑ {1<≠path?𝕩≢1⊑path;1}¨⊸/ ('#'⊸≠∘(map⊸(⊑˜)))⊸/ candidates
+  } •_while_ {𝕩⋄ 'E'≠map⊑˜⊑path} path
+  (↕≠path)⌾(path⊸⊑) (≢map)⥊∞
+}
 
 Cheats ← {𝕊n:  # convolve with a diamond of radius n to discover cheats
 c ← n‿n
